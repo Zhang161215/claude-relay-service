@@ -235,6 +235,109 @@
               </span>
             </div>
           </div>
+          <!-- Claude 使用限额显示 (5h/7d) -->
+          <div
+            v-if="account.claudeUsage"
+            class="mt-4 space-y-3 border-t border-gray-200 pt-3 dark:border-gray-700"
+          >
+            <div class="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <i class="fas fa-chart-line mr-1"></i>Claude 使用限额
+            </div>
+
+            <!-- 5小时窗口 -->
+            <div
+              v-if="
+                account.claudeUsage.fiveHour && account.claudeUsage.fiveHour.utilization !== null
+              "
+              class="space-y-1.5"
+            >
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-600 dark:text-gray-400">
+                  <i class="fas fa-clock mr-1"></i>5小时窗口
+                </span>
+                <span
+                  class="font-semibold"
+                  :class="getUsageColor(account.claudeUsage.fiveHour.utilization)"
+                >
+                  {{ Math.round(account.claudeUsage.fiveHour.utilization) }}%
+                </span>
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-bar"
+                  :class="getUsageBarClass(account.claudeUsage.fiveHour.utilization)"
+                  :style="{ width: Math.min(100, account.claudeUsage.fiveHour.utilization) + '%' }"
+                ></div>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                重置剩余 {{ formatRemainingTime(account.claudeUsage.fiveHour.remainingSeconds) }}
+              </div>
+            </div>
+
+            <!-- 7天窗口 -->
+            <div
+              v-if="
+                account.claudeUsage.sevenDay && account.claudeUsage.sevenDay.utilization !== null
+              "
+              class="space-y-1.5"
+            >
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-600 dark:text-gray-400">
+                  <i class="fas fa-calendar-week mr-1"></i>7天窗口
+                </span>
+                <span
+                  class="font-semibold"
+                  :class="getUsageColor(account.claudeUsage.sevenDay.utilization)"
+                >
+                  {{ Math.round(account.claudeUsage.sevenDay.utilization) }}%
+                </span>
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-bar"
+                  :class="getUsageBarClass(account.claudeUsage.sevenDay.utilization)"
+                  :style="{ width: Math.min(100, account.claudeUsage.sevenDay.utilization) + '%' }"
+                ></div>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                重置剩余 {{ formatRemainingTime(account.claudeUsage.sevenDay.remainingSeconds) }}
+              </div>
+            </div>
+
+            <!-- Opus 7天窗口 -->
+            <div
+              v-if="
+                account.claudeUsage.sevenDayOpus &&
+                account.claudeUsage.sevenDayOpus.utilization !== null
+              "
+              class="space-y-1.5"
+            >
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-600 dark:text-gray-400">
+                  <i class="fas fa-gem mr-1"></i>Opus 7天窗口
+                </span>
+                <span
+                  class="font-semibold"
+                  :class="getUsageColor(account.claudeUsage.sevenDayOpus.utilization)"
+                >
+                  {{ Math.round(account.claudeUsage.sevenDayOpus.utilization) }}%
+                </span>
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-bar"
+                  :class="getUsageBarClass(account.claudeUsage.sevenDayOpus.utilization)"
+                  :style="{
+                    width: Math.min(100, account.claudeUsage.sevenDayOpus.utilization) + '%'
+                  }"
+                ></div>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                重置剩余
+                {{ formatRemainingTime(account.claudeUsage.sevenDayOpus.remainingSeconds) }}
+              </div>
+            </div>
+          </div>
 
           <div v-else-if="account.platform === 'openai'" class="mt-3">
             <div v-if="account.codexUsage" class="space-y-2">
@@ -362,10 +465,10 @@ const boundAccountList = computed(() => {
   const accounts = statsData.value?.accounts?.details
   if (!accounts) return []
   const result = []
-  if (accounts.claude && accounts.claude.accountType === 'dedicated') {
+  if (accounts.claude) {
     result.push({ key: 'claude', ...accounts.claude })
   }
-  if (accounts.openai && accounts.openai.accountType === 'dedicated') {
+  if (accounts.openai) {
     result.push({ key: 'openai', ...accounts.openai })
   }
   return result
@@ -506,6 +609,36 @@ const formatCodexRemaining = (usageItem) => {
 }
 
 const getCodexWindowLabel = (type) => (type === 'secondary' ? '周限' : '5h')
+
+// 根据使用率返回颜色类
+const getUsageColor = (utilization) => {
+  if (utilization >= 80) return 'text-red-600 dark:text-red-400'
+  if (utilization >= 60) return 'text-amber-600 dark:text-amber-400'
+  return 'text-green-600 dark:text-green-400'
+}
+
+// 根据使用率返回进度条颜色类
+const getUsageBarClass = (utilization) => {
+  if (utilization >= 80) return 'bg-red-500'
+  if (utilization >= 60) return 'bg-amber-500'
+  return 'bg-green-500'
+}
+
+// 格式化剩余时间（秒 -> 可读格式）
+const formatRemainingTime = (seconds) => {
+  if (!seconds || seconds <= 0) return '-'
+
+  const days = Math.floor(seconds / 86400)
+  const hours = Math.floor((seconds % 86400) / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+
+  const parts = []
+  if (days > 0) parts.push(`${days}天`)
+  if (hours > 0) parts.push(`${hours}小时`)
+  if (minutes > 0 && days === 0) parts.push(`${minutes}分钟`)
+
+  return parts.length > 0 ? parts.join('') : '即将重置'
+}
 </script>
 
 <style scoped>

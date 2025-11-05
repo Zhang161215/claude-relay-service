@@ -349,7 +349,12 @@ router.post('/api/user-stats', async (req, res) => {
               fullKeyData.claudeAccountId
             )
 
-            if (overview && overview.accountType === 'dedicated') {
+            if (overview) {
+              // 获取 Claude 账户的使用情况（5h/7d窗口）
+              const accountData = await redis.getClaudeAccount(fullKeyData.claudeAccountId)
+              const claudeUsage = claudeAccountService.buildClaudeUsageSnapshot(accountData)
+              overview.claudeUsage = claudeUsage
+
               boundAccountDetails.claude = overview
             }
           } catch (error) {
@@ -367,7 +372,7 @@ router.post('/api/user-stats', async (req, res) => {
               fullKeyData.openaiAccountId
             )
 
-            if (overview && overview.accountType === 'dedicated') {
+            if (overview) {
               boundAccountDetails.openai = overview
             }
           } catch (error) {
