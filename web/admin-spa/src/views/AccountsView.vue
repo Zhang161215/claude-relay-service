@@ -46,12 +46,12 @@
             <!-- 分组筛选器 -->
             <div class="group relative min-w-[160px]">
               <div
-                class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
+                class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-blue-500 to-pink-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
               ></div>
               <CustomDropdown
                 v-model="groupFilter"
                 icon="fa-layer-group"
-                icon-color="text-purple-500"
+                icon-color="text-blue-500"
                 :options="groupOptions"
                 placeholder="选择分组"
                 @change="filterByGroup"
@@ -360,7 +360,7 @@
                               >
                             </div>
                             <div class="flex items-start gap-2">
-                              <i class="fas fa-gem mt-[2px] text-[10px] text-purple-500"></i>
+                              <i class="fas fa-gem mt-[2px] text-[10px] text-blue-500"></i>
                               <span class="font-medium text-white dark:text-gray-900"
                                 >Opus 窗口：7天Opus模型专用限额。</span
                               >
@@ -423,7 +423,7 @@
                       </div>
                       <span
                         v-if="account.accountType === 'dedicated'"
-                        class="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800"
+                        class="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800"
                       >
                         <i class="fas fa-lock mr-1" />专属
                       </span>
@@ -479,12 +479,12 @@
                   </div>
                   <div
                     v-else-if="account.platform === 'claude-console'"
-                    class="flex items-center gap-1.5 rounded-lg border border-purple-200 bg-gradient-to-r from-purple-100 to-pink-100 px-2.5 py-1"
+                    class="flex items-center gap-1.5 rounded-lg border border-blue-200 bg-gradient-to-r from-blue-100 to-pink-100 px-2.5 py-1"
                   >
-                    <i class="fas fa-terminal text-xs text-purple-700" />
-                    <span class="text-xs font-semibold text-purple-800">Console</span>
-                    <span class="mx-1 h-4 w-px bg-purple-300" />
-                    <span class="text-xs font-medium text-purple-700">API Key</span>
+                    <i class="fas fa-terminal text-xs text-blue-700" />
+                    <span class="text-xs font-semibold text-blue-800">Console</span>
+                    <span class="mx-1 h-4 w-px bg-blue-300" />
+                    <span class="text-xs font-medium text-blue-700">API Key</span>
                   </div>
                   <div
                     v-else-if="account.platform === 'bedrock'"
@@ -762,7 +762,7 @@
                     >
                   </div>
                   <div class="flex items-center gap-2">
-                    <div class="h-2 w-2 rounded-full bg-purple-500" />
+                    <div class="h-2 w-2 rounded-full bg-blue-500" />
                     <span class="text-xs text-gray-600 dark:text-gray-300"
                       >{{ formatNumber(account.usage.daily.allTokens || 0) }}M</span
                     >
@@ -856,7 +856,7 @@
                     <div class="rounded-lg bg-gray-50 p-2 dark:bg-gray-700/70">
                       <div class="flex items-center gap-2">
                         <span
-                          class="inline-flex min-w-[32px] justify-center rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-medium text-purple-600 dark:bg-purple-500/20 dark:text-purple-300"
+                          class="inline-flex min-w-[32px] justify-center rounded-full bg-blue-100 px-2 py-0.5 text-[11px] font-medium text-blue-600 dark:bg-blue-500/20 dark:text-blue-300"
                         >
                           Opus
                         </span>
@@ -901,7 +901,7 @@
                       class="flex items-center gap-3 text-xs"
                     >
                       <div class="flex items-center gap-1">
-                        <div class="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                        <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
                         <span class="font-medium text-gray-900 dark:text-gray-100">
                           {{ formatNumber(account.usage.sessionWindow.totalTokens) }}M
                         </span>
@@ -1215,7 +1215,7 @@
                 :class="[
                   'flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg',
                   account.platform === 'claude'
-                    ? 'bg-gradient-to-br from-purple-500 to-purple-600'
+                    ? 'bg-gradient-to-br from-blue-500 to-blue-600'
                     : account.platform === 'bedrock'
                       ? 'bg-gradient-to-br from-orange-500 to-red-600'
                       : account.platform === 'azure_openai'
@@ -1286,7 +1286,7 @@
                   </p>
                 </div>
                 <div class="flex items-center gap-1.5">
-                  <div class="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                  <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
                   <p class="text-xs text-gray-600 dark:text-gray-400">
                     {{ formatNumber(account.usage?.daily?.allTokens || 0) }}M
                   </p>
@@ -1303,7 +1303,7 @@
               <p class="text-xs text-gray-500 dark:text-gray-400">会话窗口</p>
               <div v-if="account.usage && account.usage.sessionWindow" class="space-y-1">
                 <div class="flex items-center gap-1.5">
-                  <div class="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                  <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
                   <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">
                     {{ formatNumber(account.usage.sessionWindow.totalTokens) }}M
                   </p>
@@ -1395,7 +1395,7 @@
                 <div class="rounded-lg bg-gray-50 p-2 dark:bg-gray-700/70">
                   <div class="flex items-center gap-2">
                     <span
-                      class="inline-flex min-w-[32px] justify-center rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-medium text-purple-600 dark:bg-purple-500/20 dark:text-purple-300"
+                      class="inline-flex min-w-[32px] justify-center rounded-full bg-blue-100 px-2 py-0.5 text-[11px] font-medium text-blue-600 dark:bg-blue-500/20 dark:text-blue-300"
                     >
                       Opus
                     </span>

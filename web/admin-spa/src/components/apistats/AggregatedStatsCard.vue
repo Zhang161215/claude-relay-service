@@ -141,7 +141,7 @@ const calculatePercentage = (stat) => {
 
 // 获取进度条颜色
 const getProgressColor = (index) => {
-  const colors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-yellow-500', 'bg-pink-500']
+  const colors = ['bg-blue-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-pink-500']
   return colors[index] || 'bg-gray-400'
 }
 

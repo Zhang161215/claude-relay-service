@@ -82,19 +82,19 @@
           </div>
 
           <div
-            class="rounded-lg border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-4"
+            class="rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-4"
           >
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-xs font-medium text-purple-600">权限范围</p>
-                <p class="mt-1 text-lg font-bold text-purple-900">
+                <p class="text-xs font-medium text-blue-600">权限范围</p>
+                <p class="mt-1 text-lg font-bold text-blue-900">
                   {{ getPermissionText() }}
                 </p>
               </div>
               <div
-                class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500 bg-opacity-20"
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500 bg-opacity-20"
               >
-                <i class="fas fa-shield-alt text-purple-600" />
+                <i class="fas fa-shield-alt text-blue-600" />
               </div>
             </div>
           </div>

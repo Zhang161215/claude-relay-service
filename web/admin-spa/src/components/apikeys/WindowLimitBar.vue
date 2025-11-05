@@ -58,7 +58,7 @@
       <!-- 请求限制进度条 -->
       <div
         v-if="requestLimit > 0"
-        class="relative h-6 overflow-hidden rounded-md border border-opacity-20 bg-gradient-to-r from-purple-50 to-indigo-100 dark:from-purple-950/30 dark:to-indigo-900/30"
+        class="relative h-6 overflow-hidden rounded-md border border-opacity-20 bg-gradient-to-r from-blue-50 to-indigo-100 dark:from-blue-950/30 dark:to-indigo-900/30"
         :class="costLimit > 0 ? 'w-1/2' : 'w-full'"
       >
         <!-- 进度条 -->
@@ -160,7 +160,7 @@ const getRequestProgressBarClass = () => {
   } else if (p >= 70) {
     return 'bg-gradient-to-r from-orange-500 to-yellow-500'
   } else {
-    return 'bg-gradient-to-r from-purple-500 to-indigo-600'
+    return 'bg-gradient-to-r from-blue-500 to-indigo-600'
   }
 }
 

@@ -863,6 +863,28 @@
             </div>
           </div>
 
+          <!-- 显示使用限额 -->
+          <div>
+            <div class="mb-2 flex items-center">
+              <input
+                id="showUsageStats"
+                v-model="form.showUsageStats"
+                class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
+                type="checkbox"
+              />
+              <label
+                class="ml-2 cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-300"
+                for="showUsageStats"
+              >
+                显示使用限额
+              </label>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              启用后，将在 API Stats 页面显示此 API Key 绑定账号的 Claude
+              使用限额信息（5小时、7天窗口等）
+            </p>
+          </div>
+
           <div class="flex gap-3 pt-2">
             <button
               class="flex-1 rounded-lg bg-gray-100 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
@@ -977,7 +999,8 @@ const form = reactive({
   modelInput: '',
   enableClientRestriction: false,
   allowedClients: [],
-  tags: []
+  tags: [],
+  showUsageStats: true // 是否在API Stats页面显示使用限额
 })
 
 // 加载支持的客户端和已存在的标签

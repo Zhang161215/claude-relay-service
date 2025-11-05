@@ -89,7 +89,7 @@
                   <td class="w-48 whitespace-nowrap px-6 py-4">
                     <div class="flex items-center">
                       <div
-                        class="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-purple-600"
+                        class="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600"
                       >
                         <i class="fas fa-image text-xs text-white" />
                       </div>
@@ -152,7 +152,7 @@
                   <td class="w-48 whitespace-nowrap px-6 py-4">
                     <div class="flex items-center">
                       <div
-                        class="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600"
+                        class="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600"
                       >
                         <i class="fas fa-eye-slash text-xs text-white" />
                       </div>
@@ -250,7 +250,7 @@
             <div class="glass-card p-4">
               <div class="mb-3 flex items-center gap-3">
                 <div
-                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-md"
+                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-pink-600 text-white shadow-md"
                 >
                   <i class="fas fa-image"></i>
                 </div>
@@ -309,7 +309,7 @@
             <div class="glass-card p-4">
               <div class="mb-3 flex items-center gap-3">
                 <div
-                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md"
+                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white shadow-md"
                 >
                   <i class="fas fa-eye-slash"></i>
                 </div>
@@ -1912,7 +1912,7 @@ const getPlatformIcon = (type) => {
     wechat_work: 'fab fa-weixin text-green-600',
     dingtalk: 'fas fa-comment-dots text-blue-500',
     feishu: 'fas fa-dove text-blue-600',
-    slack: 'fab fa-slack text-purple-600',
+    slack: 'fab fa-slack text-blue-600',
     discord: 'fab fa-discord text-indigo-600',
     telegram: 'fab fa-telegram-plane text-sky-500',
     bark: 'fas fa-bell text-orange-500',

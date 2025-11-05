@@ -61,7 +61,7 @@
               <!-- 时间范围筛选 -->
               <div class="group relative min-w-[140px]">
                 <div
-                  class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
+                  class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
                 ></div>
                 <CustomDropdown
                   v-model="globalDateFilter.preset"
@@ -97,20 +97,20 @@
               <!-- 标签筛选器 -->
               <div class="group relative min-w-[140px]">
                 <div
-                  class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
+                  class="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-blue-500 to-pink-500 opacity-0 blur transition duration-300 group-hover:opacity-20"
                 ></div>
                 <div class="relative">
                   <CustomDropdown
                     v-model="selectedTagFilter"
                     icon="fa-tags"
-                    icon-color="text-purple-500"
+                    icon-color="text-blue-500"
                     :options="tagOptions"
                     placeholder="所有标签"
                     @change="currentPage = 1"
                   />
                   <span
                     v-if="selectedTagFilter"
-                    class="absolute -right-2 -top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-purple-500 text-xs text-white shadow-sm"
+                    class="absolute -right-2 -top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-xs text-white shadow-sm"
                   >
                     {{ selectedTagCount }}
                   </span>
@@ -662,7 +662,7 @@
                       <td class="whitespace-nowrap px-3 py-3 text-right" style="font-size: 13px">
                         <div class="flex items-center justify-end gap-1">
                           <span
-                            class="font-medium text-purple-600 dark:text-purple-400"
+                            class="font-medium text-blue-600 dark:text-blue-400"
                             style="font-size: 13px"
                           >
                             {{ formatTokenCount(getPeriodTokens(key)) }}
@@ -783,7 +783,7 @@
                       >
                         <div class="flex gap-1">
                           <button
-                            class="rounded px-2 py-1 text-xs font-medium text-purple-600 transition-colors hover:bg-purple-50 hover:text-purple-900 dark:hover:bg-purple-900/20"
+                            class="rounded px-2 py-1 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-900 dark:hover:bg-blue-900/20"
                             title="查看详细统计"
                             @click="showUsageDetails(key)"
                           >
@@ -1017,7 +1017,7 @@
                                   </div>
                                   <div
                                     v-if="stat.cacheCreateTokens > 0"
-                                    class="flex items-center justify-between text-xs text-purple-600"
+                                    class="flex items-center justify-between text-xs text-blue-600"
                                   >
                                     <span class="flex items-center">
                                       <i class="fas fa-save mr-1" />
@@ -1029,7 +1029,7 @@
                                   </div>
                                   <div
                                     v-if="stat.cacheReadTokens > 0"
-                                    class="flex items-center justify-between text-xs text-purple-600"
+                                    class="flex items-center justify-between text-xs text-blue-600"
                                   >
                                     <span class="flex items-center">
                                       <i class="fas fa-download mr-1" />
@@ -1047,7 +1047,7 @@
                                 class="mt-3 h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700"
                               >
                                 <div
-                                  class="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500"
+                                  class="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-blue-600 transition-all duration-500"
                                   :style="{
                                     width:
                                       calculateApiKeyModelPercentage(
@@ -1073,7 +1073,7 @@
                           <!-- 总计统计，仅在有数据时显示 -->
                           <div
                             v-if="apiKeyModelStats[key.id] && apiKeyModelStats[key.id].length > 0"
-                            class="mt-4 rounded-lg border border-indigo-100 bg-gradient-to-r from-indigo-50 to-purple-50 p-3 dark:border-indigo-700 dark:from-indigo-900/20 dark:to-purple-900/20"
+                            class="mt-4 rounded-lg border border-indigo-100 bg-gradient-to-r from-indigo-50 to-blue-50 p-3 dark:border-indigo-700 dark:from-indigo-900/20 dark:to-blue-900/20"
                           >
                             <div class="flex items-center justify-between text-sm">
                               <span
@@ -1707,7 +1707,7 @@
                             class="flex items-center gap-1 text-xs"
                           >
                             <span
-                              class="inline-flex items-center rounded bg-purple-100 px-1.5 py-0.5 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+                              class="inline-flex items-center rounded bg-blue-100 px-1.5 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
                             >
                               <i class="fa-google mr-1 text-[10px]" />
                               Gemini
@@ -1780,7 +1780,7 @@
                       <!-- Token -->
                       <td class="whitespace-nowrap px-3 py-3 text-right" style="font-size: 13px">
                         <span
-                          class="font-medium text-purple-600 dark:text-purple-400"
+                          class="font-medium text-blue-600 dark:text-blue-400"
                           style="font-size: 13px"
                         >
                           {{ formatTokenCount(key.usage?.total?.tokens || 0) }}

@@ -220,7 +220,7 @@ const getTokenProgressColor = () => {
   const progress = getTokenProgress()
   if (progress >= 100) return 'bg-red-500'
   if (progress >= 80) return 'bg-yellow-500'
-  return 'bg-purple-500'
+  return 'bg-blue-500'
 }
 
 const getCostProgress = () => {

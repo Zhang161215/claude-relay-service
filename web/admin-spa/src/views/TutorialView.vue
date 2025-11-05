@@ -210,19 +210,19 @@
           class="mb-3 flex items-center text-lg font-semibold text-gray-800 dark:text-gray-300 sm:mb-4 sm:text-xl"
         >
           <span
-            class="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-purple-500 text-xs font-bold text-white sm:mr-3 sm:h-8 sm:w-8 sm:text-sm"
+            class="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white sm:mr-3 sm:h-8 sm:w-8 sm:text-sm"
             >3</span
           >
           设置环境变量
         </h4>
 
         <div
-          class="mb-4 rounded-xl border border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50 p-4 dark:border-purple-500/40 dark:from-purple-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
+          class="mb-4 rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-pink-50 p-4 dark:border-blue-500/40 dark:from-blue-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
         >
           <h5
             class="mb-2 flex items-center text-base font-semibold text-gray-800 dark:text-gray-200 sm:mb-3 sm:text-lg"
           >
-            <i class="fas fa-cog mr-2 text-purple-600" />
+            <i class="fas fa-cog mr-2 text-blue-600" />
             配置 Claude Code 环境变量
           </h5>
           <p class="mb-3 text-sm text-gray-700 dark:text-gray-300 sm:mb-4 sm:text-base">
@@ -231,7 +231,7 @@
 
           <div class="space-y-4">
             <div
-              class="rounded-lg border border-purple-200 bg-white p-3 dark:border-purple-700 dark:bg-gray-800 sm:p-4"
+              class="rounded-lg border border-blue-200 bg-white p-3 dark:border-blue-700 dark:bg-gray-800 sm:p-4"
             >
               <h6 class="mb-2 text-sm font-medium text-gray-800 dark:text-gray-300 sm:text-base">
                 方法一：PowerShell 临时设置（当前会话）
@@ -255,7 +255,7 @@
             </div>
 
             <div
-              class="rounded-lg border border-purple-200 bg-white p-3 dark:border-purple-700 dark:bg-gray-800 sm:p-4"
+              class="rounded-lg border border-blue-200 bg-white p-3 dark:border-blue-700 dark:bg-gray-800 sm:p-4"
             >
               <h6 class="mb-2 text-sm font-medium text-gray-800 dark:text-gray-300 sm:text-base">
                 方法二：PowerShell 永久设置（用户级）
@@ -296,6 +296,13 @@
               </p>
             </div>
           </div>
+          <p class="mt-3 text-xs text-blue-700 dark:text-blue-300 sm:text-sm">
+            🚀 如果你在后台添加了 <strong>Droid</strong> 类型账号，请将上述命令中的
+            <code class="rounded bg-blue-100 px-1 dark:bg-blue-900">{{ currentBaseUrl }}</code>
+            替换为
+            <code class="rounded bg-blue-100 px-1 dark:bg-blue-900">{{ droidClaudeBaseUrl }}</code
+            >，其余配置保持不变。
+          </p>
         </div>
 
         <!-- VSCode 插件配置 -->
@@ -403,13 +410,13 @@
                 class="overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
                 <div class="whitespace-nowrap text-gray-300">
-                  $env:GOOGLE_GEMINI_BASE_URL = "{{ geminiBaseUrl }}"
+                  $env:CODE_ASSIST_ENDPOINT = "{{ geminiBaseUrl }}"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  $env:GEMINI_API_KEY = "你的API密钥"
+                  $env:GOOGLE_CLOUD_ACCESS_TOKEN = "你的API密钥"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  $env:GEMINI_MODEL = "gemini-2.5-pro"
+                  $env:GOOGLE_GENAI_USE_GCA = "true"
                 </div>
               </div>
               <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-400">
@@ -431,16 +438,16 @@
               >
                 <div class="mb-2"># 设置用户级环境变量（永久生效）</div>
                 <div class="whitespace-nowrap text-gray-300">
-                  [System.Environment]::SetEnvironmentVariable("GOOGLE_GEMINI_BASE_URL", "{{
+                  [System.Environment]::SetEnvironmentVariable("CODE_ASSIST_ENDPOINT", "{{
                     geminiBaseUrl
                   }}", [System.EnvironmentVariableTarget]::User)
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  [System.Environment]::SetEnvironmentVariable("GEMINI_API_KEY", "你的API密钥",
-                  [System.EnvironmentVariableTarget]::User)
+                  [System.Environment]::SetEnvironmentVariable("GOOGLE_CLOUD_ACCESS_TOKEN",
+                  "你的API密钥", [System.EnvironmentVariableTarget]::User)
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  [System.Environment]::SetEnvironmentVariable("GEMINI_MODEL", "gemini-2.5-pro",
+                  [System.Environment]::SetEnvironmentVariable("GOOGLE_GENAI_USE_GCA", "true",
                   [System.EnvironmentVariableTarget]::User)
                 </div>
               </div>
@@ -459,9 +466,11 @@
               <div
                 class="space-y-1 overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
-                <div class="whitespace-nowrap text-gray-300">echo $env:GOOGLE_GEMINI_BASE_URL</div>
-                <div class="whitespace-nowrap text-gray-300">echo $env:GEMINI_API_KEY</div>
-                <div class="whitespace-nowrap text-gray-300">echo $env:GEMINI_MODEL</div>
+                <div class="whitespace-nowrap text-gray-300">echo $env:CODE_ASSIST_ENDPOINT</div>
+                <div class="whitespace-nowrap text-gray-300">
+                  echo $env:GOOGLE_CLOUD_ACCESS_TOKEN
+                </div>
+                <div class="whitespace-nowrap text-gray-300">echo $env:GOOGLE_GENAI_USE_GCA</div>
               </div>
             </div>
           </div>
@@ -503,6 +512,17 @@
                   {{ line }}
                 </div>
               </div>
+              <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-300 sm:text-sm">
+                🚀 如果你要使用 <strong>Droid</strong> 类型账号池，请把配置中的
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  openaiBaseUrl
+                }}</code>
+                替换为
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  droidOpenaiBaseUrl
+                }}</code
+                >。
+              </p>
               <p class="mt-3 text-sm text-yellow-700 dark:text-yellow-300">
                 在
                 <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900"
@@ -852,12 +872,12 @@
         </h4>
 
         <div
-          class="mb-4 rounded-xl border border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50 p-4 dark:border-purple-500/40 dark:from-purple-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
+          class="mb-4 rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-pink-50 p-4 dark:border-blue-500/40 dark:from-blue-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
         >
           <h5
             class="mb-2 flex items-center text-base font-semibold text-gray-800 dark:text-gray-200 sm:mb-3 sm:text-lg"
           >
-            <i class="fas fa-download mr-2 text-purple-600" />
+            <i class="fas fa-download mr-2 text-blue-600" />
             安装 Claude Code
           </h5>
           <p class="mb-3 text-sm text-gray-700 dark:text-gray-300 sm:mb-4 sm:text-base">
@@ -987,6 +1007,15 @@
               </div>
             </div>
           </div>
+          <p class="mt-3 text-xs text-orange-700 dark:text-orange-300 sm:text-sm">
+            🚀 如果你创建了 <strong>Droid</strong> 类型账号，请把上述命令中的
+            <code class="rounded bg-orange-100 px-1 dark:bg-orange-900">{{ currentBaseUrl }}</code>
+            替换为
+            <code class="rounded bg-orange-100 px-1 dark:bg-orange-900">{{
+              droidClaudeBaseUrl
+            }}</code
+            >，其余配置保持不变。
+          </p>
         </div>
 
         <!-- VSCode 插件配置 (macOS) -->
@@ -1045,13 +1074,13 @@
                 class="overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
                 <div class="whitespace-nowrap text-gray-300">
-                  export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"
+                  export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  export GEMINI_API_KEY="你的API密钥"
+                  export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  export GEMINI_MODEL="gemini-2.5-pro"
+                  export GOOGLE_GENAI_USE_GCA="true"
                 </div>
               </div>
               <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-400">
@@ -1073,13 +1102,13 @@
               >
                 <div class="mb-2"># 对于 zsh (默认)</div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"' >> ~/.zshrc
+                  echo 'export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_API_KEY="你的API密钥"' >> ~/.zshrc
+                  echo 'export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_MODEL="gemini-2.5-pro"' >> ~/.zshrc
+                  echo 'export GOOGLE_GENAI_USE_GCA="true"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">source ~/.zshrc</div>
               </div>
@@ -1088,13 +1117,13 @@
               >
                 <div class="mb-2"># 对于 bash</div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"' >> ~/.bash_profile
+                  echo 'export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"' >> ~/.bash_profile
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_API_KEY="你的API密钥"' >> ~/.bash_profile
+                  echo 'export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"' >> ~/.bash_profile
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_MODEL="gemini-2.5-pro"' >> ~/.bash_profile
+                  echo 'export GOOGLE_GENAI_USE_GCA="true"' >> ~/.bash_profile
                 </div>
                 <div class="whitespace-nowrap text-gray-300">source ~/.bash_profile</div>
               </div>
@@ -1110,9 +1139,9 @@
               <div
                 class="space-y-1 overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
-                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_GEMINI_BASE_URL</div>
-                <div class="whitespace-nowrap text-gray-300">echo $GEMINI_API_KEY</div>
-                <div class="whitespace-nowrap text-gray-300">echo $GEMINI_MODEL</div>
+                <div class="whitespace-nowrap text-gray-300">echo $CODE_ASSIST_ENDPOINT</div>
+                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_CLOUD_ACCESS_TOKEN</div>
+                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_GENAI_USE_GCA</div>
               </div>
             </div>
           </div>
@@ -1154,6 +1183,17 @@
                   {{ line }}
                 </div>
               </div>
+              <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-300 sm:text-sm">
+                🚀 如果你要使用 <strong>Droid</strong> 类型账号池，请把配置中的
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  openaiBaseUrl
+                }}</code>
+                替换为
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  droidOpenaiBaseUrl
+                }}</code
+                >。
+              </p>
               <p class="mt-3 text-sm text-yellow-700 dark:text-yellow-300">
                 在
                 <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900"
@@ -1501,12 +1541,12 @@
         </h4>
 
         <div
-          class="mb-4 rounded-xl border border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50 p-4 dark:border-purple-500/40 dark:from-purple-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
+          class="mb-4 rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-pink-50 p-4 dark:border-blue-500/40 dark:from-blue-950/30 dark:to-pink-950/30 sm:mb-6 sm:p-6"
         >
           <h5
             class="mb-2 flex items-center text-base font-semibold text-gray-800 dark:text-gray-200 sm:mb-3 sm:text-lg"
           >
-            <i class="fas fa-download mr-2 text-purple-600" />
+            <i class="fas fa-download mr-2 text-blue-600" />
             安装 Claude Code
           </h5>
           <p class="mb-3 text-sm text-gray-700 dark:text-gray-300 sm:mb-4 sm:text-base">
@@ -1632,6 +1672,15 @@
               </div>
             </div>
           </div>
+          <p class="mt-3 text-xs text-orange-700 dark:text-orange-300 sm:text-sm">
+            🚀 如果你创建了 <strong>Droid</strong> 类型账号，请把上述命令中的
+            <code class="rounded bg-orange-100 px-1 dark:bg-orange-900">{{ currentBaseUrl }}</code>
+            替换为
+            <code class="rounded bg-orange-100 px-1 dark:bg-orange-900">{{
+              droidClaudeBaseUrl
+            }}</code
+            >，其余配置保持不变。
+          </p>
         </div>
 
         <!-- Gemini CLI 环境变量设置 -->
@@ -1658,13 +1707,13 @@
                 class="overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
                 <div class="whitespace-nowrap text-gray-300">
-                  export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"
+                  export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  export GEMINI_API_KEY="你的API密钥"
+                  export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  export GEMINI_MODEL="gemini-2.5-pro"
+                  export GOOGLE_GENAI_USE_GCA="true"
                 </div>
               </div>
               <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-400">
@@ -1686,13 +1735,13 @@
               >
                 <div class="mb-2"># 对于 bash (默认)</div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"' >> ~/.bashrc
+                  echo 'export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"' >> ~/.bashrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_API_KEY="你的API密钥"' >> ~/.bashrc
+                  echo 'export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"' >> ~/.bashrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_MODEL="gemini-2.5-pro"' >> ~/.bashrc
+                  echo 'export GOOGLE_GENAI_USE_GCA="true"' >> ~/.bashrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">source ~/.bashrc</div>
               </div>
@@ -1701,13 +1750,13 @@
               >
                 <div class="mb-2"># 对于 zsh</div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GOOGLE_GEMINI_BASE_URL="{{ geminiBaseUrl }}"' >> ~/.zshrc
+                  echo 'export CODE_ASSIST_ENDPOINT="{{ geminiBaseUrl }}"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_API_KEY="你的API密钥"' >> ~/.zshrc
+                  echo 'export GOOGLE_CLOUD_ACCESS_TOKEN="你的API密钥"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">
-                  echo 'export GEMINI_MODEL="gemini-2.5-pro"' >> ~/.zshrc
+                  echo 'export GOOGLE_GENAI_USE_GCA="true"' >> ~/.zshrc
                 </div>
                 <div class="whitespace-nowrap text-gray-300">source ~/.zshrc</div>
               </div>
@@ -1723,9 +1772,9 @@
               <div
                 class="space-y-1 overflow-x-auto rounded bg-gray-900 p-2 font-mono text-xs text-green-400 sm:p-3 sm:text-sm"
               >
-                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_GEMINI_BASE_URL</div>
-                <div class="whitespace-nowrap text-gray-300">echo $GEMINI_API_KEY</div>
-                <div class="whitespace-nowrap text-gray-300">echo $GEMINI_MODEL</div>
+                <div class="whitespace-nowrap text-gray-300">echo $CODE_ASSIST_ENDPOINT</div>
+                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_CLOUD_ACCESS_TOKEN</div>
+                <div class="whitespace-nowrap text-gray-300">echo $GOOGLE_GENAI_USE_GCA</div>
               </div>
             </div>
           </div>
@@ -1767,6 +1816,17 @@
                   {{ line }}
                 </div>
               </div>
+              <p class="mt-2 text-xs text-yellow-700 dark:text-yellow-300 sm:text-sm">
+                🚀 如果你要使用 <strong>Droid</strong> 类型账号池，请把配置中的
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  openaiBaseUrl
+                }}</code>
+                替换为
+                <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900">{{
+                  droidOpenaiBaseUrl
+                }}</code
+                >。
+              </p>
               <p class="mt-3 text-sm text-yellow-700 dark:text-yellow-300">
                 在
                 <code class="rounded bg-yellow-100 px-1 dark:bg-yellow-900"
@@ -2055,7 +2115,7 @@
 
       <!-- 结尾 -->
       <div
-        class="rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-center text-white sm:p-6"
+        class="rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-center text-white sm:p-6"
       >
         <h5 class="mb-2 text-lg font-semibold sm:text-xl">🎉 恭喜你！</h5>
         <p class="mb-3 text-sm text-blue-100 sm:mb-4 sm:text-base">
@@ -2231,6 +2291,8 @@ const codexConfigContent = computed(() => {
       '[model_providers.crs]',
       'name = "crs"',
       `base_url = "${openaiBaseUrl.value}"`,
+      '# 若使用 Droid 类型账号，请改为以下地址',
+      `# base_url = "${droidOpenaiBaseUrl.value}"`,
       'wire_api = "responses"',
       'requires_openai_auth = true',
       'env_key = "CRS_OAI_KEY"'
@@ -2397,12 +2459,12 @@ html.dark :deep(.bg-indigo-50) {
 }
 
 /* Purple 提示框 */
-html.dark :deep(.border-purple-200) {
+html.dark :deep(.border-blue-200) {
   border-color: rgba(168, 85, 247, 0.5) !important;
 }
 
 /* 渐变背景优化 */
-html.dark :deep(.from-purple-50) {
+html.dark :deep(.from-blue-50) {
   background: linear-gradient(
     to right,
     rgba(168, 85, 247, 0.15),
@@ -2507,7 +2569,7 @@ html.dark :deep(.bg-white) {
 }
 
 /* 边框颜色统一优化 */
-html.dark :deep(.border-purple-700) {
+html.dark :deep(.border-blue-700) {
   border-color: rgba(168, 85, 247, 0.6) !important;
 }
 
@@ -2519,7 +2581,7 @@ html.dark :deep(.border-green-100) {
   border-color: rgba(34, 197, 94, 0.4) !important;
 }
 
-html.dark :deep(.border-purple-100) {
+html.dark :deep(.border-blue-100) {
   border-color: rgba(168, 85, 247, 0.4) !important;
 }
 

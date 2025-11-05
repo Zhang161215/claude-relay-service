@@ -44,10 +44,10 @@
 
         <!-- 聚合统计数据 -->
         <div
-          class="rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 p-4 dark:from-purple-900/20 dark:to-pink-900/20"
+          class="rounded-lg bg-gradient-to-r from-blue-50 to-pink-50 p-4 dark:from-blue-900/20 dark:to-pink-900/20"
         >
           <div class="mb-3 flex items-center">
-            <i class="fas fa-chart-pie mr-2 text-purple-500" />
+            <i class="fas fa-chart-pie mr-2 text-blue-500" />
             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">聚合统计摘要</span>
           </div>
           <div class="space-y-2">

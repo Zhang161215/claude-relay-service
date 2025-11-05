@@ -32,7 +32,7 @@
       </div>
       <div class="flex items-center justify-between">
         <span class="flex items-center text-sm text-gray-600 dark:text-gray-400 md:text-base">
-          <i class="fas fa-save mr-1 text-xs text-purple-500 md:mr-2 md:text-sm" />
+          <i class="fas fa-save mr-1 text-xs text-blue-500 md:mr-2 md:text-sm" />
           缓存创建 Token
         </span>
         <span class="text-sm font-medium text-gray-900 dark:text-gray-100 md:text-base">{{

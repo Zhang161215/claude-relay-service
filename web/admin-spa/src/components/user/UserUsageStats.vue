@@ -111,7 +111,7 @@
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <svg
-                class="h-6 w-6 text-purple-500"
+                class="h-6 w-6 text-blue-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

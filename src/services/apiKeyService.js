@@ -97,7 +97,8 @@ class ApiKeyService {
       activationDays = 0, // 新增：激活后有效天数（0表示不使用此功能）
       activationUnit = 'days', // 新增：激活时间单位 'hours' 或 'days'
       expirationMode = 'fixed', // 新增：过期模式 'fixed'(固定时间) 或 'activation'(首次使用后激活)
-      icon = '' // 新增：图标（base64编码）
+      icon = '', // 新增：图标（base64编码）
+      showUsageStats = true // 新增：是否在API Stats页面显示使用限额
     } = options
 
     // 生成简单的API Key (64字符十六进制)
@@ -143,7 +144,8 @@ class ApiKeyService {
       createdBy: options.createdBy || 'admin',
       userId: options.userId || '',
       userUsername: options.userUsername || '',
-      icon: icon || '' // 新增：图标（base64编码）
+      icon: icon || '', // 新增：图标（base64编码）
+      showUsageStats: String(showUsageStats !== undefined ? showUsageStats : true) // 新增：是否显示使用限额
     }
 
     // 保存API Key数据并建立哈希映射
@@ -185,7 +187,8 @@ class ApiKeyService {
       activatedAt: keyData.activatedAt,
       createdAt: keyData.createdAt,
       expiresAt: keyData.expiresAt,
-      createdBy: keyData.createdBy
+      createdBy: keyData.createdBy,
+      showUsageStats: keyData.showUsageStats === 'true' || keyData.showUsageStats === undefined
     }
   }
 

@@ -7,7 +7,7 @@
         <div class="mb-4 flex items-center justify-between sm:mb-6">
           <div class="flex items-center gap-2 sm:gap-3">
             <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 sm:h-10 sm:w-10 sm:rounded-xl"
+              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 sm:h-10 sm:w-10 sm:rounded-xl"
             >
               <i class="fas fa-layer-group text-sm text-white sm:text-base" />
             </div>
@@ -121,7 +121,7 @@
                     :class="[
                       'rounded-full px-2 py-1 text-xs font-medium',
                       group.platform === 'claude'
-                        ? 'bg-purple-100 text-purple-700'
+                        ? 'bg-blue-100 text-blue-700'
                         : group.platform === 'gemini'
                           ? 'bg-blue-100 text-blue-700'
                           : group.platform === 'openai'

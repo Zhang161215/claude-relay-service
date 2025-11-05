@@ -9,9 +9,7 @@
           <i
             class="header-icon"
             :class="
-              multiKeyMode
-                ? 'fas fa-layer-group text-purple-500'
-                : 'fas fa-info-circle text-blue-500'
+              multiKeyMode ? 'fas fa-layer-group text-blue-500' : 'fas fa-info-circle text-blue-500'
             "
           />
           <h3 class="header-title">{{ multiKeyMode ? '批量查询概要' : 'API Key 信息' }}</h3>
@@ -148,7 +146,7 @@
             <p class="metric-label">{{ statsPeriod === 'daily' ? '今日' : '本月' }}Token 数</p>
           </div>
           <div class="metric-card">
-            <p class="metric-value text-purple-600 dark:text-violet-300">
+            <p class="metric-value text-blue-600 dark:text-violet-300">
               {{ currentPeriodData.formattedCost || '$0.000000' }}
             </p>
             <p class="metric-label">{{ statsPeriod === 'daily' ? '今日' : '本月' }}费用</p>
@@ -201,7 +199,10 @@
             </div>
           </div>
 
-          <div v-if="account.platform === 'claude'" class="mt-3 space-y-2">
+          <div
+            v-if="account.platform === 'claude' && statsData.showUsageStats"
+            class="mt-3 space-y-2"
+          >
             <div class="progress-row">
               <div class="progress-track">
                 <div
@@ -339,7 +340,7 @@
             </div>
           </div>
 
-          <div v-else-if="account.platform === 'openai'" class="mt-3">
+          <div v-else-if="account.platform === 'openai' && statsData.showUsageStats" class="mt-3">
             <div v-if="account.codexUsage" class="space-y-2">
               <div
                 v-for="type in ['primary', 'secondary']"
@@ -725,7 +726,7 @@ const formatRemainingTime = (seconds) => {
 }
 
 .icon-claude {
-  @apply bg-gradient-to-br from-purple-500 to-purple-600;
+  @apply bg-gradient-to-br from-blue-500 to-blue-600;
 }
 
 .icon-openai {

@@ -77,7 +77,7 @@
                     class="group relative cursor-pointer overflow-hidden rounded-lg border-2 transition-all duration-200"
                     :class="[
                       platformGroup === 'claude'
-                        ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-purple-50 shadow-md dark:from-indigo-900/20 dark:to-purple-900/20'
+                        ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-blue-50 shadow-md dark:from-indigo-900/20 dark:to-blue-900/20'
                         : 'border-gray-200 bg-white hover:border-indigo-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-indigo-600'
                     ]"
                     @click="selectPlatformGroup('claude')"
@@ -85,7 +85,7 @@
                     <div class="p-3">
                       <div class="flex items-center justify-between">
                         <div
-                          class="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-purple-600"
+                          class="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-blue-600"
                         >
                           <i class="fas fa-brain text-sm text-white"></i>
                         </div>
@@ -252,8 +252,8 @@
                         class="group relative flex cursor-pointer items-center rounded-md border p-2 transition-all"
                         :class="[
                           form.platform === 'claude-console'
-                            ? 'border-purple-500 bg-purple-50 dark:border-purple-400 dark:bg-purple-900/30'
-                            : 'border-gray-300 bg-white hover:border-purple-400 hover:bg-purple-50/50 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-purple-500 dark:hover:bg-purple-900/20'
+                            ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/30'
+                            : 'border-gray-300 bg-white hover:border-blue-400 hover:bg-blue-50/50 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-500 dark:hover:bg-blue-900/20'
                         ]"
                       >
                         <input
@@ -263,9 +263,7 @@
                           value="claude-console"
                         />
                         <div class="flex items-center gap-2">
-                          <i
-                            class="fas fa-terminal text-sm text-purple-600 dark:text-purple-400"
-                          ></i>
+                          <i class="fas fa-terminal text-sm text-blue-600 dark:text-blue-400"></i>
                           <div>
                             <span class="block text-xs font-medium text-gray-900 dark:text-gray-100"
                               >Claude Console</span
@@ -275,7 +273,7 @@
                         </div>
                         <div
                           v-if="form.platform === 'claude-console'"
-                          class="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-purple-500"
+                          class="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500"
                         >
                           <i class="fas fa-check text-xs text-white"></i>
                         </div>
@@ -638,49 +636,6 @@
               <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                 共享账户：供所有API Key使用；专属账户：仅供特定API
                 Key使用；分组调度：加入分组供分组内调度
-              </p>
-            </div>
-
-            <!-- 到期时间 - 仅在创建账户时显示，编辑时使用独立的过期时间编辑弹窗 -->
-            <div v-if="!isEdit">
-              <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300"
-                >到期时间 (可选)</label
-              >
-              <div
-                class="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800"
-              >
-                <select
-                  v-model="form.expireDuration"
-                  class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                  @change="updateAccountExpireAt"
-                >
-                  <option value="">永不过期</option>
-                  <option value="30d">30 天</option>
-                  <option value="90d">90 天</option>
-                  <option value="180d">180 天</option>
-                  <option value="365d">365 天</option>
-                  <option value="custom">自定义日期</option>
-                </select>
-                <div v-if="form.expireDuration === 'custom'" class="mt-3">
-                  <input
-                    v-model="form.customExpireDate"
-                    class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                    :min="minDateTime"
-                    type="datetime-local"
-                    @change="updateAccountCustomExpireAt"
-                  />
-                </div>
-                <p v-if="form.expiresAt" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                  <i class="fas fa-calendar-alt mr-1" />
-                  将于 {{ formatExpireDate(form.expiresAt) }} 过期
-                </p>
-                <p v-else class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                  <i class="fas fa-infinity mr-1" />
-                  账户永不过期
-                </p>
-              </div>
-              <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                设置 Claude Max/Pro 订阅的到期时间，到期后将停止调度此账户
               </p>
             </div>
 
@@ -1142,23 +1097,6 @@
                 </div>
               </div>
 
-              <!-- 并发控制字段 -->
-              <div>
-                <label class="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  最大并发任务数
-                </label>
-                <input
-                  v-model.number="form.maxConcurrentTasks"
-                  class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                  min="0"
-                  placeholder="0 表示不限制"
-                  type="number"
-                />
-                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  限制该账户的并发请求数量，0 表示不限制
-                </p>
-              </div>
-
               <div>
                 <label class="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300"
                   >模型限制 (可选)</label
@@ -1183,8 +1121,8 @@
                     class="flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all"
                     :class="
                       modelRestrictionMode === 'mapping'
-                        ? 'bg-purple-500 text-white shadow-md'
-                        : 'border border-gray-300 text-gray-600 hover:border-purple-300 dark:border-gray-600 dark:text-gray-400 dark:hover:border-purple-500'
+                        ? 'bg-blue-500 text-white shadow-md'
+                        : 'border border-gray-300 text-gray-600 hover:border-blue-300 dark:border-gray-600 dark:text-gray-400 dark:hover:border-blue-500'
                     "
                     type="button"
                     @click="modelRestrictionMode = 'mapping'"
@@ -1235,8 +1173,8 @@
 
                 <!-- 映射模式 -->
                 <div v-else>
-                  <div class="mb-3 rounded-lg bg-purple-50 p-3 dark:bg-purple-900/30">
-                    <p class="text-xs text-purple-700 dark:text-purple-400">
+                  <div class="mb-3 rounded-lg bg-blue-50 p-3 dark:bg-blue-900/30">
+                    <p class="text-xs text-blue-700 dark:text-blue-400">
                       <i class="fas fa-info-circle mr-1" />
                       配置模型映射关系。左侧是客户端请求的模型，右侧是实际发送给API的模型。
                     </p>
@@ -1294,16 +1232,7 @@
                       + Sonnet 4
                     </button>
                     <button
-                      class="rounded-lg bg-indigo-100 px-3 py-1 text-xs text-indigo-700 transition-colors hover:bg-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
-                      type="button"
-                      @click="
-                        addPresetMapping('claude-sonnet-4-5-20250929', 'claude-sonnet-4-5-20250929')
-                      "
-                    >
-                      + Sonnet 4.5
-                    </button>
-                    <button
-                      class="rounded-lg bg-purple-100 px-3 py-1 text-xs text-purple-700 transition-colors hover:bg-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:hover:bg-purple-900/50"
+                      class="rounded-lg bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-colors hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
                       type="button"
                       @click="
                         addPresetMapping('claude-opus-4-1-20250805', 'claude-opus-4-1-20250805')
@@ -1321,44 +1250,7 @@
                       + Haiku 3.5
                     </button>
                     <button
-                      class="rounded-lg bg-emerald-100 px-3 py-1 text-xs text-emerald-700 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
-                      type="button"
-                      @click="
-                        addPresetMapping('claude-haiku-4-5-20251001', 'claude-haiku-4-5-20251001')
-                      "
-                    >
-                      + Haiku 4.5
-                    </button>
-                    <button
-                      class="rounded-lg bg-cyan-100 px-3 py-1 text-xs text-cyan-700 transition-colors hover:bg-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:hover:bg-cyan-900/50"
-                      type="button"
-                      @click="addPresetMapping('deepseek-chat', 'deepseek-chat')"
-                    >
-                      + DeepSeek
-                    </button>
-                    <button
                       class="rounded-lg bg-orange-100 px-3 py-1 text-xs text-orange-700 transition-colors hover:bg-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:hover:bg-orange-900/50"
-                      type="button"
-                      @click="addPresetMapping('Qwen', 'Qwen')"
-                    >
-                      + Qwen
-                    </button>
-                    <button
-                      class="rounded-lg bg-pink-100 px-3 py-1 text-xs text-pink-700 transition-colors hover:bg-pink-200 dark:bg-pink-900/30 dark:text-pink-400 dark:hover:bg-pink-900/50"
-                      type="button"
-                      @click="addPresetMapping('Kimi', 'Kimi')"
-                    >
-                      + Kimi
-                    </button>
-                    <button
-                      class="rounded-lg bg-teal-100 px-3 py-1 text-xs text-teal-700 transition-colors hover:bg-teal-200 dark:bg-teal-900/30 dark:text-teal-400 dark:hover:bg-teal-900/50"
-                      type="button"
-                      @click="addPresetMapping('GLM', 'GLM')"
-                    >
-                      + GLM
-                    </button>
-                    <button
-                      class="rounded-lg bg-amber-100 px-3 py-1 text-xs text-amber-700 transition-colors hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:hover:bg-amber-900/50"
                       type="button"
                       @click="
                         addPresetMapping('claude-opus-4-1-20250805', 'claude-sonnet-4-20250514')
@@ -1832,19 +1724,19 @@
             <!-- API Key 模式输入 -->
             <div
               v-if="form.addType === 'apikey' && form.platform === 'droid'"
-              class="space-y-4 rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-700 dark:bg-purple-900/30"
+              class="space-y-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-700 dark:bg-blue-900/30"
             >
               <div class="mb-4 flex items-start gap-3">
                 <div
-                  class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-purple-500"
+                  class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500"
                 >
                   <i class="fas fa-key text-sm text-white" />
                 </div>
                 <div>
-                  <h5 class="mb-2 font-semibold text-purple-900 dark:text-purple-200">
+                  <h5 class="mb-2 font-semibold text-blue-900 dark:text-blue-200">
                     使用 API Key 调度 Droid
                   </h5>
-                  <p class="text-sm text-purple-800 dark:text-purple-200">
+                  <p class="text-sm text-blue-800 dark:text-blue-200">
                     请填写一个或多个 Factory.ai API
                     Key，系统会自动在请求时随机挑选并结合会话哈希维持粘性，确保对话上下文保持稳定。
                   </p>
@@ -1873,16 +1765,12 @@
               </div>
 
               <div
-                class="rounded-lg border border-purple-200 bg-white/70 p-3 text-xs text-purple-800 dark:border-purple-700 dark:bg-purple-800/20 dark:text-purple-100"
+                class="rounded-lg border border-blue-200 bg-white/70 p-3 text-xs text-blue-800 dark:border-blue-700 dark:bg-blue-800/20 dark:text-blue-100"
               >
                 <p class="font-medium"><i class="fas fa-random mr-1" />分配策略说明</p>
                 <ul class="mt-1 list-disc space-y-1 pl-4">
                   <li>新会话将随机命中一个 Key，并在会话有效期内保持粘性。</li>
                   <li>若某 Key 失效，会自动切换到剩余可用 Key，最大化成功率。</li>
-                  <li>
-                    若上游返回 4xx 错误码，该 Key 会被自动标记为异常；全部 Key
-                    异常后账号将暂停调度。
-                  </li>
                 </ul>
               </div>
             </div>
@@ -2173,49 +2061,6 @@
             <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
               共享账户：供所有API Key使用；专属账户：仅供特定API
               Key使用；分组调度：加入分组供分组内调度
-            </p>
-          </div>
-
-          <!-- 到期时间 - 仅在创建账户时显示，编辑时使用独立的过期时间编辑弹窗 -->
-          <div v-if="!isEdit">
-            <label class="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300"
-              >到期时间 (可选)</label
-            >
-            <div
-              class="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800"
-            >
-              <select
-                v-model="form.expireDuration"
-                class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                @change="updateAccountExpireAt"
-              >
-                <option value="">永不过期</option>
-                <option value="30d">30 天</option>
-                <option value="90d">90 天</option>
-                <option value="180d">180 天</option>
-                <option value="365d">365 天</option>
-                <option value="custom">自定义日期</option>
-              </select>
-              <div v-if="form.expireDuration === 'custom'" class="mt-3">
-                <input
-                  v-model="form.customExpireDate"
-                  class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                  :min="minDateTime"
-                  type="datetime-local"
-                  @change="updateAccountCustomExpireAt"
-                />
-              </div>
-              <p v-if="form.expiresAt" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                <i class="fas fa-calendar-alt mr-1" />
-                将于 {{ formatExpireDate(form.expiresAt) }} 过期
-              </p>
-              <p v-else class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                <i class="fas fa-infinity mr-1" />
-                账户永不过期
-              </p>
-            </div>
-            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-              设置 Claude Max/Pro 订阅的到期时间，到期后将停止调度此账户
             </p>
           </div>
 
@@ -2557,23 +2402,6 @@
               </div>
             </div>
 
-            <!-- 并发控制字段（编辑模式）-->
-            <div>
-              <label class="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                最大并发任务数
-              </label>
-              <input
-                v-model.number="form.maxConcurrentTasks"
-                class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                min="0"
-                placeholder="0 表示不限制"
-                type="number"
-              />
-              <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                限制该账户的并发请求数量，0 表示不限制
-              </p>
-            </div>
-
             <div>
               <label class="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300"
                 >模型限制 (可选)</label
@@ -2598,8 +2426,8 @@
                   class="flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all"
                   :class="
                     modelRestrictionMode === 'mapping'
-                      ? 'bg-purple-500 text-white shadow-md'
-                      : 'border border-gray-300 text-gray-600 hover:border-purple-300 dark:border-gray-600 dark:text-gray-400 dark:hover:border-purple-500'
+                      ? 'bg-blue-500 text-white shadow-md'
+                      : 'border border-gray-300 text-gray-600 hover:border-blue-300 dark:border-gray-600 dark:text-gray-400 dark:hover:border-blue-500'
                   "
                   type="button"
                   @click="modelRestrictionMode = 'mapping'"
@@ -2650,8 +2478,8 @@
 
               <!-- 映射模式 -->
               <div v-else>
-                <div class="mb-3 rounded-lg bg-purple-50 p-3 dark:bg-purple-900/30">
-                  <p class="text-xs text-purple-700 dark:text-purple-400">
+                <div class="mb-3 rounded-lg bg-blue-50 p-3 dark:bg-blue-900/30">
+                  <p class="text-xs text-blue-700 dark:text-blue-400">
                     <i class="fas fa-info-circle mr-1" />
                     配置模型映射关系。左侧是客户端请求的模型，右侧是实际发送给API的模型。
                   </p>
@@ -2709,16 +2537,7 @@
                     + Sonnet 4
                   </button>
                   <button
-                    class="rounded-lg bg-indigo-100 px-3 py-1 text-xs text-indigo-700 transition-colors hover:bg-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
-                    type="button"
-                    @click="
-                      addPresetMapping('claude-sonnet-4-5-20250929', 'claude-sonnet-4-5-20250929')
-                    "
-                  >
-                    + Sonnet 4.5
-                  </button>
-                  <button
-                    class="rounded-lg bg-purple-100 px-3 py-1 text-xs text-purple-700 transition-colors hover:bg-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:hover:bg-purple-900/50"
+                    class="rounded-lg bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-colors hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
                     type="button"
                     @click="
                       addPresetMapping('claude-opus-4-1-20250805', 'claude-opus-4-1-20250805')
@@ -2736,44 +2555,7 @@
                     + Haiku 3.5
                   </button>
                   <button
-                    class="rounded-lg bg-emerald-100 px-3 py-1 text-xs text-emerald-700 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
-                    type="button"
-                    @click="
-                      addPresetMapping('claude-haiku-4-5-20251001', 'claude-haiku-4-5-20251001')
-                    "
-                  >
-                    + Haiku 4.5
-                  </button>
-                  <button
-                    class="rounded-lg bg-cyan-100 px-3 py-1 text-xs text-cyan-700 transition-colors hover:bg-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:hover:bg-cyan-900/50"
-                    type="button"
-                    @click="addPresetMapping('deepseek-chat', 'deepseek-chat')"
-                  >
-                    + DeepSeek
-                  </button>
-                  <button
                     class="rounded-lg bg-orange-100 px-3 py-1 text-xs text-orange-700 transition-colors hover:bg-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:hover:bg-orange-900/50"
-                    type="button"
-                    @click="addPresetMapping('Qwen', 'Qwen')"
-                  >
-                    + Qwen
-                  </button>
-                  <button
-                    class="rounded-lg bg-pink-100 px-3 py-1 text-xs text-pink-700 transition-colors hover:bg-pink-200 dark:bg-pink-900/30 dark:text-pink-400 dark:hover:bg-pink-900/50"
-                    type="button"
-                    @click="addPresetMapping('Kimi', 'Kimi')"
-                  >
-                    + Kimi
-                  </button>
-                  <button
-                    class="rounded-lg bg-teal-100 px-3 py-1 text-xs text-teal-700 transition-colors hover:bg-teal-200 dark:bg-teal-900/30 dark:text-teal-400 dark:hover:bg-teal-900/50"
-                    type="button"
-                    @click="addPresetMapping('GLM', 'GLM')"
-                  >
-                    + GLM
-                  </button>
-                  <button
-                    class="rounded-lg bg-amber-100 px-3 py-1 text-xs text-amber-700 transition-colors hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:hover:bg-amber-900/50"
                     type="button"
                     @click="
                       addPresetMapping('claude-opus-4-1-20250805', 'claude-sonnet-4-20250514')
@@ -2906,23 +2688,6 @@
                   type="time"
                 />
               </div>
-            </div>
-
-            <!-- 并发控制字段 -->
-            <div>
-              <label class="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                最大并发任务数
-              </label>
-              <input
-                v-model.number="form.maxConcurrentTasks"
-                class="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-                min="0"
-                placeholder="0 表示不限制"
-                type="number"
-              />
-              <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                限制该账户的并发请求数量，0 表示不限制
-              </p>
             </div>
           </div>
 
@@ -3147,32 +2912,22 @@
           <!-- Token 更新 -->
           <div
             v-if="isEdit && isEditingDroidApiKey"
-            class="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-700 dark:bg-purple-900/30"
+            class="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-700 dark:bg-blue-900/30"
           >
             <div class="mb-4 flex items-start gap-3">
               <div
-                class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-purple-500"
+                class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500"
               >
                 <i class="fas fa-retweet text-sm text-white" />
               </div>
-              <div class="flex-1">
-                <div class="mb-2 flex items-center justify-between">
-                  <h5 class="font-semibold text-purple-900 dark:text-purple-200">更新 API Key</h5>
-                  <button
-                    class="flex items-center gap-1.5 rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600"
-                    type="button"
-                    @click="showApiKeyManagement = true"
-                  >
-                    <i class="fas fa-list-ul" />
-                    <span>管理 API Key</span>
-                  </button>
-                </div>
-                <p class="mb-1 text-sm text-purple-800 dark:text-purple-200">
+              <div>
+                <h5 class="mb-2 font-semibold text-blue-900 dark:text-blue-200">更新 API Key</h5>
+                <p class="mb-1 text-sm text-blue-800 dark:text-blue-200">
                   当前已保存 <strong>{{ existingApiKeyCount }}</strong> 条 API Key。您可以追加新的
-                  Key，或通过下方模式快速覆盖、删除指定 Key。
+                  Key 或使用下方选项清空后重新填写。
                 </p>
-                <p class="text-xs text-purple-700 dark:text-purple-300">
-                  留空表示保留现有 Key 不变；根据所选模式决定是追加、覆盖还是删除输入的 Key。
+                <p class="text-xs text-blue-700 dark:text-blue-300">
+                  留空表示保留现有 Key 不变；填写内容后将覆盖或追加（视清空选项而定）。
                 </p>
               </div>
             </div>
@@ -3186,7 +2941,7 @@
                   v-model="form.apiKeysInput"
                   class="form-input w-full resize-none border-gray-300 font-mono text-xs dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400"
                   :class="{ 'border-red-500': errors.apiKeys }"
-                  placeholder="根据模式填写；每行一个 API Key"
+                  placeholder="留空表示不更新；每行一个 API Key"
                   rows="6"
                 />
                 <p v-if="errors.apiKeys" class="mt-1 text-xs text-red-500">
@@ -3194,51 +2949,24 @@
                 </p>
               </div>
 
-              <div class="space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="text-sm font-semibold text-purple-800 dark:text-purple-100"
-                    >API Key 更新模式</span
-                  >
-                  <span class="text-xs text-purple-600 dark:text-purple-300">
-                    {{ currentApiKeyModeLabel }}
-                  </span>
-                </div>
-                <div
-                  class="relative grid h-11 grid-cols-3 overflow-hidden rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-purple-50/80 shadow-inner dark:border-purple-700/70 dark:from-purple-900/40 dark:via-purple-900/20 dark:to-purple-900/40"
-                >
-                  <span
-                    class="pointer-events-none absolute inset-y-0 rounded-2xl bg-gradient-to-r from-purple-500/90 via-purple-600 to-indigo-500/90 shadow-lg ring-1 ring-purple-100/80 transition-all duration-300 ease-out dark:from-purple-500/70 dark:via-purple-600/70 dark:to-indigo-500/70 dark:ring-purple-400/30"
-                    :style="apiKeyModeSliderStyle"
-                  />
-                  <button
-                    v-for="option in apiKeyModeOptions"
-                    :key="option.value"
-                    class="relative z-10 flex items-center justify-center rounded-2xl px-2 text-xs font-semibold transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 dark:focus-visible:ring-purple-400/60"
-                    :class="
-                      form.apiKeyUpdateMode === option.value
-                        ? 'text-white drop-shadow-sm'
-                        : 'text-purple-500/80 hover:text-purple-700 dark:text-purple-200/70 dark:hover:text-purple-100'
-                    "
-                    type="button"
-                    @click="form.apiKeyUpdateMode = option.value"
-                  >
-                    {{ option.label }}
-                  </button>
-                </div>
-                <p class="text-xs text-purple-700 dark:text-purple-300">
-                  {{ currentApiKeyModeDescription }}
-                </p>
-              </div>
+              <label
+                class="flex cursor-pointer items-center gap-2 rounded-md border border-blue-200 bg-white/80 px-3 py-2 text-sm text-blue-800 transition-colors hover:border-blue-300 dark:border-blue-700 dark:bg-blue-800/20 dark:text-blue-100"
+              >
+                <input
+                  v-model="form.clearExistingApiKeys"
+                  class="rounded border-blue-300 text-blue-600 focus:ring-blue-500 dark:border-blue-500 dark:bg-blue-900"
+                  type="checkbox"
+                />
+                <span>清空已有 API Key 后再应用上方的 Key 列表</span>
+              </label>
 
               <div
-                class="rounded-lg border border-purple-200 bg-white/70 p-3 text-xs text-purple-800 dark:border-purple-700 dark:bg-purple-800/20 dark:text-purple-100"
+                class="rounded-lg border border-blue-200 bg-white/70 p-3 text-xs text-blue-800 dark:border-blue-700 dark:bg-blue-800/20 dark:text-blue-100"
               >
                 <p class="font-medium"><i class="fas fa-lightbulb mr-1" />小提示</p>
                 <ul class="mt-1 list-disc space-y-1 pl-4">
                   <li>系统会为新的 Key 自动建立粘性映射，保持同一会话命中同一个 Key。</li>
-                  <li>追加模式会保留现有 Key 并在末尾追加新的 Key。</li>
-                  <li>覆盖模式会先清空旧 Key 再写入上方的新列表。</li>
-                  <li>删除模式会根据输入精准移除指定 Key，适合快速处理失效或被封禁的 Key。</li>
+                  <li>勾选“清空”后保存即彻底移除旧 Key，可用于紧急轮换或封禁处理。</li>
                 </ul>
               </div>
             </div>
@@ -3339,15 +3067,6 @@
       @close="showGroupManagement = false"
       @refresh="handleGroupRefresh"
     />
-
-    <!-- API Key 管理模态框 -->
-    <ApiKeyManagementModal
-      v-if="showApiKeyManagement"
-      :account-id="props.account?.id"
-      :account-name="props.account?.name"
-      @close="showApiKeyManagement = false"
-      @refresh="handleApiKeyRefresh"
-    />
   </Teleport>
 </template>
 
@@ -3361,7 +3080,6 @@ import ProxyConfig from './ProxyConfig.vue'
 import OAuthFlow from './OAuthFlow.vue'
 import ConfirmModal from '@/components/common/ConfirmModal.vue'
 import GroupManagementModal from './GroupManagementModal.vue'
-import ApiKeyManagementModal from './ApiKeyManagementModal.vue'
 
 const props = defineProps({
   account: {
@@ -3400,9 +3118,6 @@ const clearingCache = ref(false)
 
 // 平台分组状态
 const platformGroup = ref('')
-
-// API Key 管理模态框
-const showApiKeyManagement = ref(false)
 
 // 根据现有平台确定分组
 const determinePlatformGroup = (platform) => {
@@ -3564,7 +3279,7 @@ const form = ref({
   accessToken: '',
   refreshToken: '',
   apiKeysInput: '',
-  apiKeyUpdateMode: 'append',
+  clearExistingApiKeys: false,
   proxy: initProxyConfig(),
   // Claude Console 特定字段
   apiUrl: props.account?.apiUrl || '',
@@ -3593,8 +3308,6 @@ const form = ref({
   dailyQuota: props.account?.dailyQuota || 0,
   dailyUsage: props.account?.dailyUsage || 0,
   quotaResetTime: props.account?.quotaResetTime || '00:00',
-  // 并发控制字段
-  maxConcurrentTasks: props.account?.maxConcurrentTasks || 0,
   // Bedrock 特定字段
   accessKeyId: props.account?.accessKeyId || '',
   secretAccessKey: props.account?.secretAccessKey || '',
@@ -3605,24 +3318,7 @@ const form = ref({
   // Azure OpenAI 特定字段
   azureEndpoint: props.account?.azureEndpoint || '',
   apiVersion: props.account?.apiVersion || '',
-  deploymentName: props.account?.deploymentName || '',
-  // 到期时间字段
-  expireDuration: (() => {
-    // 编辑时根据expiresAt初始化expireDuration
-    if (props.account?.expiresAt) {
-      return 'custom' // 如果有过期时间，默认显示为自定义
-    }
-    return ''
-  })(),
-  customExpireDate: (() => {
-    // 编辑时根据expiresAt初始化customExpireDate
-    if (props.account?.expiresAt) {
-      // 转换ISO时间为datetime-local格式 (YYYY-MM-DDTHH:mm)
-      return new Date(props.account.expiresAt).toISOString().slice(0, 16)
-    }
-    return ''
-  })(),
-  expiresAt: props.account?.expiresAt || null
+  deploymentName: props.account?.deploymentName || ''
 })
 
 // 模型限制配置
@@ -3639,13 +3335,8 @@ const commonModels = [
   { value: 'claude-sonnet-4-20250514', label: 'Claude Sonnet 4', color: 'blue' },
   { value: 'claude-sonnet-4-5-20250929', label: 'Claude Sonnet 4.5', color: 'indigo' },
   { value: 'claude-3-5-haiku-20241022', label: 'Claude 3.5 Haiku', color: 'green' },
-  { value: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5', color: 'emerald' },
   { value: 'claude-opus-4-20250514', label: 'Claude Opus 4', color: 'purple' },
-  { value: 'claude-opus-4-1-20250805', label: 'Claude Opus 4.1', color: 'purple' },
-  { value: 'deepseek-chat', label: 'DeepSeek Chat', color: 'cyan' },
-  { value: 'Qwen', label: 'Qwen', color: 'orange' },
-  { value: 'Kimi', label: 'Kimi', color: 'pink' },
-  { value: 'GLM', label: 'GLM', color: 'teal' }
+  { value: 'claude-opus-4-1-20250805', label: 'Claude Opus 4.1', color: 'purple' }
 ]
 
 // 模型映射表数据
@@ -3660,31 +3351,25 @@ const initModelMappings = () => {
       !Array.isArray(props.account.supportedModels)
     ) {
       const entries = Object.entries(props.account.supportedModels)
+      modelMappings.value = entries.map(([from, to]) => ({ from, to }))
 
       // 判断是白名单模式还是映射模式
       // 如果所有映射都是"映射到自己"，则视为白名单模式
       const isWhitelist = entries.every(([from, to]) => from === to)
       if (isWhitelist) {
         modelRestrictionMode.value = 'whitelist'
-        // 白名单模式：设置 allowedModels（显示勾选的模型）
         allowedModels.value = entries.map(([from]) => from)
-        // 同时保留 modelMappings（以便用户切换到映射模式时有初始数据）
-        modelMappings.value = entries.map(([from, to]) => ({ from, to }))
       } else {
         modelRestrictionMode.value = 'mapping'
-        // 映射模式：设置 modelMappings（显示映射表）
-        modelMappings.value = entries.map(([from, to]) => ({ from, to }))
-        // 不填充 allowedModels，因为映射模式不使用白名单复选框
       }
     } else if (Array.isArray(props.account.supportedModels)) {
       // 如果是数组格式（旧格式），转换为白名单模式
-      modelRestrictionMode.value = 'whitelist'
-      allowedModels.value = props.account.supportedModels
-      // 同时设置 modelMappings 为自映射
       modelMappings.value = props.account.supportedModels.map((model) => ({
         from: model,
         to: model
       }))
+      modelRestrictionMode.value = 'whitelist'
+      allowedModels.value = props.account.supportedModels
     }
   }
 }
@@ -3707,47 +3392,6 @@ const parseApiKeysInput = (input) => {
   const uniqueKeys = Array.from(new Set(segments))
   return uniqueKeys
 }
-
-const apiKeyModeOptions = [
-  {
-    value: 'append',
-    label: '追加模式',
-    description: '保留现有 Key，并在末尾追加新 Key 列表。'
-  },
-  {
-    value: 'replace',
-    label: '覆盖模式',
-    description: '先清空旧 Key，再写入上方的新 Key 列表。'
-  },
-  {
-    value: 'delete',
-    label: '删除模式',
-    description: '输入要移除的 Key，可精准删除失效或被封禁的 Key。'
-  }
-]
-
-const apiKeyModeSliderStyle = computed(() => {
-  const index = Math.max(
-    apiKeyModeOptions.findIndex((option) => option.value === form.value.apiKeyUpdateMode),
-    0
-  )
-  const widthPercent = 100 / apiKeyModeOptions.length
-
-  return {
-    width: `${widthPercent}%`,
-    left: `${index * widthPercent}%`
-  }
-})
-
-const currentApiKeyModeLabel = computed(() => {
-  const option = apiKeyModeOptions.find((item) => item.value === form.value.apiKeyUpdateMode)
-  return option ? option.label : apiKeyModeOptions[0].label
-})
-
-const currentApiKeyModeDescription = computed(() => {
-  const option = apiKeyModeOptions.find((item) => item.value === form.value.apiKeyUpdateMode)
-  return option ? option.description : apiKeyModeOptions[0].description
-})
 
 // 表单验证错误
 const errors = ref({
@@ -4052,7 +3696,6 @@ const handleOAuthSuccess = async (tokenInfo) => {
       accountType: form.value.accountType,
       groupId: form.value.accountType === 'group' ? form.value.groupId : undefined,
       groupIds: form.value.accountType === 'group' ? form.value.groupIds : undefined,
-      expiresAt: form.value.expiresAt || undefined,
       proxy: proxyPayload
     }
 
@@ -4060,35 +3703,7 @@ const handleOAuthSuccess = async (tokenInfo) => {
 
     if (currentPlatform === 'claude') {
       // Claude使用claudeAiOauth字段
-      const claudeOauthPayload = tokenInfo.claudeAiOauth || tokenInfo
-      data.claudeAiOauth = claudeOauthPayload
-      if (claudeOauthPayload) {
-        const extInfoPayload = {}
-        const extSource = claudeOauthPayload.extInfo
-        if (extSource && typeof extSource === 'object') {
-          if (extSource.org_uuid) {
-            extInfoPayload.org_uuid = extSource.org_uuid
-          }
-          if (extSource.account_uuid) {
-            extInfoPayload.account_uuid = extSource.account_uuid
-          }
-        }
-
-        if (!extSource) {
-          const orgUuid = claudeOauthPayload.organization?.uuid
-          const accountUuid = claudeOauthPayload.account?.uuid
-          if (orgUuid) {
-            extInfoPayload.org_uuid = orgUuid
-          }
-          if (accountUuid) {
-            extInfoPayload.account_uuid = accountUuid
-          }
-        }
-
-        if (Object.keys(extInfoPayload).length > 0) {
-          data.extInfo = extInfoPayload
-        }
-      }
+      data.claudeAiOauth = tokenInfo.claudeAiOauth || tokenInfo
       data.priority = form.value.priority || 50
       data.autoStopOnWarning = form.value.autoStopOnWarning || false
       data.useUnifiedUserAgent = form.value.useUnifiedUserAgent || false
@@ -4372,7 +3987,6 @@ const createAccount = async () => {
       accountType: form.value.accountType,
       groupId: form.value.accountType === 'group' ? form.value.groupId : undefined,
       groupIds: form.value.accountType === 'group' ? form.value.groupIds : undefined,
-      expiresAt: form.value.expiresAt || undefined,
       proxy: proxyPayload
     }
 
@@ -4489,8 +4103,6 @@ const createAccount = async () => {
       // 额度管理字段
       data.dailyQuota = form.value.dailyQuota || 0
       data.quotaResetTime = form.value.quotaResetTime || '00:00'
-      // 并发控制字段
-      data.maxConcurrentTasks = form.value.maxConcurrentTasks || 0
     } else if (form.value.platform === 'openai-responses') {
       // OpenAI-Responses 账户特定数据
       data.baseApi = form.value.baseApi
@@ -4634,7 +4246,6 @@ const updateAccount = async () => {
       accountType: form.value.accountType,
       groupId: form.value.accountType === 'group' ? form.value.groupId : undefined,
       groupIds: form.value.accountType === 'group' ? form.value.groupIds : undefined,
-      expiresAt: form.value.expiresAt || undefined,
       proxy: proxyPayload
     }
 
@@ -4698,40 +4309,19 @@ const updateAccount = async () => {
 
     if (props.account.platform === 'droid') {
       const trimmedApiKeysInput = form.value.apiKeysInput?.trim() || ''
-      const apiKeyUpdateMode = form.value.apiKeyUpdateMode || 'append'
 
-      if (apiKeyUpdateMode === 'delete') {
-        if (!trimmedApiKeysInput) {
-          errors.value.apiKeys = '请填写需要删除的 API Key'
+      if (trimmedApiKeysInput) {
+        const apiKeys = parseApiKeysInput(trimmedApiKeysInput)
+        if (apiKeys.length === 0) {
+          errors.value.apiKeys = '请至少填写一个 API Key'
           loading.value = false
           return
         }
+        data.apiKeys = apiKeys
+      }
 
-        const removeApiKeys = parseApiKeysInput(trimmedApiKeysInput)
-        if (removeApiKeys.length === 0) {
-          errors.value.apiKeys = '请填写需要删除的 API Key'
-          loading.value = false
-          return
-        }
-
-        data.removeApiKeys = removeApiKeys
-        data.apiKeyUpdateMode = 'delete'
-      } else {
-        if (trimmedApiKeysInput) {
-          const apiKeys = parseApiKeysInput(trimmedApiKeysInput)
-          if (apiKeys.length === 0) {
-            errors.value.apiKeys = '请至少填写一个 API Key'
-            loading.value = false
-            return
-          }
-          data.apiKeys = apiKeys
-        } else if (apiKeyUpdateMode === 'replace') {
-          data.apiKeys = []
-        }
-
-        if (apiKeyUpdateMode !== 'append' || trimmedApiKeysInput) {
-          data.apiKeyUpdateMode = apiKeyUpdateMode
-        }
+      if (form.value.clearExistingApiKeys) {
+        data.clearApiKeys = true
       }
 
       if (isEditingDroidApiKey.value) {
@@ -4793,8 +4383,6 @@ const updateAccount = async () => {
       // 额度管理字段
       data.dailyQuota = form.value.dailyQuota || 0
       data.quotaResetTime = form.value.quotaResetTime || '00:00'
-      // 并发控制字段
-      data.maxConcurrentTasks = form.value.maxConcurrentTasks || 0
     }
 
     // OpenAI-Responses 特定更新
@@ -5019,30 +4607,6 @@ const handleGroupRefresh = async () => {
   await loadGroups()
 }
 
-// 处理 API Key 管理模态框刷新
-const handleApiKeyRefresh = async () => {
-  // 刷新账户信息以更新 API Key 数量
-  if (!props.account?.id) {
-    return
-  }
-
-  const refreshers = [
-    typeof accountsStore.fetchDroidAccounts === 'function'
-      ? accountsStore.fetchDroidAccounts
-      : null,
-    typeof accountsStore.fetchAllAccounts === 'function' ? accountsStore.fetchAllAccounts : null
-  ].filter(Boolean)
-
-  for (const refresher of refreshers) {
-    try {
-      await refresher()
-      return
-    } catch (error) {
-      console.error('刷新账户列表失败:', error)
-    }
-  }
-}
-
 // 监听平台变化，重置表单
 watch(
   () => form.value.platform,
@@ -5106,29 +4670,14 @@ watch(
       errors.value.accessToken = ''
       errors.value.refreshToken = ''
       form.value.authenticationMethod = 'api_key'
-      form.value.apiKeyUpdateMode = 'append'
     } else if (oldType === 'apikey') {
       // 切换离开 API Key 模式时重置 API Key 输入
       form.value.apiKeysInput = ''
-      form.value.apiKeyUpdateMode = 'append'
+      form.value.clearExistingApiKeys = false
       errors.value.apiKeys = ''
       if (!isEdit.value) {
         form.value.authenticationMethod = ''
       }
-    }
-  }
-)
-
-// 监听 API Key 更新模式切换，自动清理提示
-watch(
-  () => form.value.apiKeyUpdateMode,
-  (newMode, oldMode) => {
-    if (newMode === oldMode) {
-      return
-    }
-
-    if (errors.value.apiKeys) {
-      errors.value.apiKeys = ''
     }
   }
 )
@@ -5141,22 +4690,7 @@ watch(
       return
     }
 
-    const parsed = parseApiKeysInput(newValue)
-    const mode = form.value.apiKeyUpdateMode
-
-    if (mode === 'append' && parsed.length > 0) {
-      errors.value.apiKeys = ''
-      return
-    }
-
-    if (mode === 'replace') {
-      if (parsed.length > 0 || !newValue || newValue.trim() === '') {
-        errors.value.apiKeys = ''
-      }
-      return
-    }
-
-    if (mode === 'delete' && parsed.length > 0) {
+    if (parseApiKeysInput(newValue).length > 0) {
       errors.value.apiKeys = ''
     }
   }
@@ -5292,16 +4826,6 @@ watch(
       initModelMappings()
       // 重新初始化代理配置
       const proxyConfig = normalizeProxyFormState(newAccount.proxy)
-      const normalizedAuthMethod =
-        typeof newAccount.authenticationMethod === 'string'
-          ? newAccount.authenticationMethod.trim().toLowerCase()
-          : ''
-      const derivedAddType =
-        normalizedAuthMethod === 'api_key'
-          ? 'apikey'
-          : normalizedAuthMethod === 'manual'
-            ? 'manual'
-            : 'oauth'
 
       // 获取分组ID - 可能来自 groupId 字段或 groupInfo 对象
       let groupId = ''
@@ -5330,7 +4854,7 @@ watch(
 
       form.value = {
         platform: newAccount.platform,
-        addType: derivedAddType,
+        addType: 'oauth',
         name: newAccount.name,
         description: newAccount.description || '',
         accountType: newAccount.accountType || 'shared',
@@ -5344,9 +4868,6 @@ watch(
         projectId: newAccount.projectId || '',
         accessToken: '',
         refreshToken: '',
-        authenticationMethod: newAccount.authenticationMethod || '',
-        apiKeysInput: '',
-        apiKeyUpdateMode: 'append',
         proxy: proxyConfig,
         // Claude Console 特定字段
         apiUrl: newAccount.apiUrl || '',
@@ -5385,9 +4906,7 @@ watch(
         // 额度管理字段
         dailyQuota: newAccount.dailyQuota || 0,
         dailyUsage: newAccount.dailyUsage || 0,
-        quotaResetTime: newAccount.quotaResetTime || '00:00',
-        // 并发控制字段
-        maxConcurrentTasks: newAccount.maxConcurrentTasks || 0
+        quotaResetTime: newAccount.quotaResetTime || '00:00'
       }
 
       // 如果是Claude Console账户，加载实时使用情况
@@ -5504,61 +5023,6 @@ const handleUnifiedClientIdChange = () => {
       form.value.unifiedClientId = generateClientId()
     }
   }
-}
-
-// 到期时间相关方法
-// 计算最小日期时间
-const minDateTime = computed(() => {
-  const now = new Date()
-  now.setMinutes(now.getMinutes() + 1)
-  return now.toISOString().slice(0, 16)
-})
-
-// 更新账户过期时间
-const updateAccountExpireAt = () => {
-  if (!form.value.expireDuration) {
-    form.value.expiresAt = null
-    return
-  }
-
-  if (form.value.expireDuration === 'custom') {
-    return
-  }
-
-  const now = new Date()
-  const duration = form.value.expireDuration
-  const match = duration.match(/(\d+)([d])/)
-
-  if (match) {
-    const [, value, unit] = match
-    const num = parseInt(value)
-
-    if (unit === 'd') {
-      now.setDate(now.getDate() + num)
-    }
-
-    form.value.expiresAt = now.toISOString()
-  }
-}
-
-// 更新自定义过期时间
-const updateAccountCustomExpireAt = () => {
-  if (form.value.customExpireDate) {
-    form.value.expiresAt = new Date(form.value.customExpireDate).toISOString()
-  }
-}
-
-// 格式化过期日期
-const formatExpireDate = (dateString) => {
-  if (!dateString) return ''
-  const date = new Date(dateString)
-  return date.toLocaleString('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
 }
 
 // 组件挂载时获取统一 User-Agent 信息

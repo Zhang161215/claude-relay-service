@@ -701,6 +701,28 @@
             </div>
           </div>
 
+          <!-- 显示使用限额 -->
+          <div>
+            <div class="mb-2 flex items-center">
+              <input
+                id="editShowUsageStats"
+                v-model="form.showUsageStats"
+                class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
+                type="checkbox"
+              />
+              <label
+                class="ml-2 cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-300"
+                for="editShowUsageStats"
+              >
+                显示使用限额
+              </label>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              启用后，将在 API Stats 页面显示此 API Key 绑定账号的 Claude
+              使用限额信息（5小时、7天窗口等）
+            </p>
+          </div>
+
           <div class="flex gap-3 pt-4">
             <button
               class="flex-1 rounded-xl bg-gray-100 px-6 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
@@ -813,7 +835,8 @@ const form = reactive({
   allowedClients: [],
   tags: [],
   isActive: true,
-  ownerId: '' // 新增：所有者ID
+  ownerId: '', // 新增：所有者ID
+  showUsageStats: true // 新增：是否显示使用限额
 })
 
 // 添加限制的模型
@@ -1240,6 +1263,10 @@ onMounted(async () => {
 
   // 初始化所有者
   form.ownerId = props.apiKey.userId || 'admin'
+
+  // 初始化显示使用限额，默认为 true（向后兼容）
+  form.showUsageStats =
+    props.apiKey.showUsageStats !== undefined ? props.apiKey.showUsageStats : true
 })
 </script>
 

@@ -98,7 +98,7 @@
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <svg
-                class="h-6 w-6 text-purple-500"
+                class="h-6 w-6 text-blue-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -305,7 +305,7 @@
                       :class="[
                         'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
                         user.role === 'admin'
-                          ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                           : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                       ]"
                     >
@@ -404,7 +404,7 @@
 
               <!-- Change Role -->
               <button
-                class="inline-flex items-center rounded border border-transparent p-1 text-gray-400 hover:text-purple-600"
+                class="inline-flex items-center rounded border border-transparent p-1 text-gray-400 hover:text-blue-600"
                 title="Change Role"
                 @click="changeUserRole(user)"
               >

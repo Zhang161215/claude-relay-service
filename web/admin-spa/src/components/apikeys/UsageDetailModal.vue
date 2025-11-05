@@ -79,11 +79,11 @@
 
             <!-- 平均统计卡片 -->
             <div
-              class="rounded-lg border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-4 dark:border-purple-700 dark:from-purple-900/20 dark:to-purple-800/20"
+              class="rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-4 dark:border-blue-700 dark:from-blue-900/20 dark:to-blue-800/20"
             >
               <div class="mb-3 flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">平均速率</span>
-                <i class="fas fa-tachometer-alt text-purple-500" />
+                <i class="fas fa-tachometer-alt text-blue-500" />
               </div>
               <div class="space-y-1 text-sm">
                 <div class="flex justify-between">
@@ -127,19 +127,19 @@
               </div>
               <div v-if="cacheCreateTokens > 0" class="flex items-center justify-between">
                 <div class="flex items-center">
-                  <i class="fas fa-save mr-2 text-purple-500" />
+                  <i class="fas fa-save mr-2 text-blue-500" />
                   <span class="text-sm text-gray-600 dark:text-gray-400">缓存创建 Token</span>
                 </div>
-                <span class="text-sm font-semibold text-purple-600">
+                <span class="text-sm font-semibold text-blue-600">
                   {{ formatTokenCount(cacheCreateTokens) }}
                 </span>
               </div>
               <div v-if="cacheReadTokens > 0" class="flex items-center justify-between">
                 <div class="flex items-center">
-                  <i class="fas fa-download mr-2 text-purple-500" />
+                  <i class="fas fa-download mr-2 text-blue-500" />
                   <span class="text-sm text-gray-600 dark:text-gray-400">缓存读取 Token</span>
                 </div>
-                <span class="text-sm font-semibold text-purple-600">
+                <span class="text-sm font-semibold text-blue-600">
                   {{ formatTokenCount(cacheReadTokens) }}
                 </span>
               </div>
@@ -196,10 +196,10 @@
 
               <div
                 v-if="apiKey.concurrencyLimit > 0"
-                class="flex items-center justify-between rounded-lg border border-purple-200/70 bg-white/60 px-3 py-2 text-sm shadow-sm dark:border-purple-500/40 dark:bg-purple-950/20"
+                class="flex items-center justify-between rounded-lg border border-blue-200/70 bg-white/60 px-3 py-2 text-sm shadow-sm dark:border-blue-500/40 dark:bg-blue-950/20"
               >
                 <span class="text-gray-600 dark:text-gray-300">并发限制</span>
-                <span class="font-semibold text-purple-600 dark:text-purple-300">
+                <span class="font-semibold text-blue-600 dark:text-blue-300">
                   {{ apiKey.currentConcurrency || 0 }} / {{ apiKey.concurrencyLimit }}
                 </span>
               </div>

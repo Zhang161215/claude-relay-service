@@ -262,7 +262,7 @@ const iconClass = computed(() => {
         colorClass = 'text-green-700 dark:text-green-400'
         break
       case 'opus':
-        colorClass = 'text-purple-700 dark:text-purple-400'
+        colorClass = 'text-blue-700 dark:text-blue-400'
         break
       case 'window':
         colorClass = 'text-blue-700 dark:text-blue-400'
@@ -307,7 +307,7 @@ const labelTextClass = computed(() => {
       case 'daily':
         return 'text-gray-900 dark:text-gray-100'
       case 'opus':
-        return 'text-purple-900 dark:text-purple-100'
+        return 'text-blue-900 dark:text-blue-100'
       case 'window':
         return 'text-blue-900 dark:text-blue-100'
       case 'total':
@@ -337,7 +337,7 @@ const currentValueClass = computed(() => {
         case 'daily':
           return 'text-green-800 dark:text-green-200'
         case 'opus':
-          return 'text-purple-800 dark:text-purple-200'
+          return 'text-blue-800 dark:text-blue-200'
         case 'window':
           return 'text-blue-800 dark:text-blue-200'
         case 'total':

@@ -151,6 +151,7 @@ router.post('/api/user-stats', async (req, res) => {
         enableClientRestriction: keyData.enableClientRestriction === 'true',
         allowedClients,
         permissions: keyData.permissions || 'all',
+        showUsageStats: keyData.showUsageStats === 'true' || keyData.showUsageStats === undefined,
         // 添加激活相关字段
         expirationMode: keyData.expirationMode || 'fixed',
         isActivated: keyData.isActivated === 'true',
@@ -463,7 +464,8 @@ router.post('/api/user-stats', async (req, res) => {
         enableModelRestriction: fullKeyData.enableModelRestriction || false,
         restrictedModels: fullKeyData.restrictedModels || [],
         enableClientRestriction: fullKeyData.enableClientRestriction || false,
-        allowedClients: fullKeyData.allowedClients || []
+        allowedClients: fullKeyData.allowedClients || [],
+        showUsageStats: fullKeyData.showUsageStats === 'true' || fullKeyData.showUsageStats === undefined
       }
     }
 

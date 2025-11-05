@@ -619,7 +619,8 @@ router.post('/api-keys', authenticateAdmin, async (req, res) => {
       activationDays, // 新增：激活后有效天数
       activationUnit, // 新增：激活时间单位 (hours/days)
       expirationMode, // 新增：过期模式
-      icon // 新增：图标
+      icon, // 新增：图标
+      showUsageStats // 新增：是否显示使用限额
     } = req.body
 
     // 输入验证
@@ -779,7 +780,8 @@ router.post('/api-keys', authenticateAdmin, async (req, res) => {
       activationDays,
       activationUnit,
       expirationMode,
-      icon
+      icon,
+      showUsageStats
     })
 
     logger.success(`🔑 Admin created new API key: ${name}`)
@@ -821,7 +823,8 @@ router.post('/api-keys/batch', authenticateAdmin, async (req, res) => {
       activationDays,
       activationUnit,
       expirationMode,
-      icon
+      icon,
+      showUsageStats
     } = req.body
 
     // 输入验证
@@ -884,7 +887,8 @@ router.post('/api-keys/batch', authenticateAdmin, async (req, res) => {
           activationDays,
           activationUnit,
           expirationMode,
-          icon
+          icon,
+          showUsageStats
         })
 
         // 保留原始 API Key 供返回
@@ -1144,7 +1148,8 @@ router.put('/api-keys/:keyId', authenticateAdmin, async (req, res) => {
       totalCostLimit,
       weeklyOpusCostLimit,
       tags,
-      ownerId // 新增：所有者ID字段
+      ownerId, // 新增：所有者ID字段
+      showUsageStats // 新增：是否显示使用限额
     } = req.body
 
     // 只允许更新指定字段
@@ -1337,6 +1342,14 @@ router.put('/api-keys/:keyId', authenticateAdmin, async (req, res) => {
         return res.status(400).json({ error: 'isActive must be a boolean' })
       }
       updates.isActive = isActive
+    }
+
+    // 处理显示使用限额设置
+    if (showUsageStats !== undefined) {
+      if (typeof showUsageStats !== 'boolean') {
+        return res.status(400).json({ error: 'Show usage stats must be a boolean' })
+      }
+      updates.showUsageStats = showUsageStats
     }
 
     // 处理所有者变更
@@ -9178,6 +9191,86 @@ router.post('/droid-accounts/:id/refresh-token', authenticateAdmin, async (req, 
   } catch (error) {
     logger.error(`Failed to refresh Droid account token ${req.params.id}:`, error)
     return res.status(500).json({ error: 'Failed to refresh token', message: error.message })
+  }
+})
+
+// 获取 Droid 账户的 API Key 列表（带掩码的详细信息）
+router.get('/droid-accounts/:id/api-keys', authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params
+    const account = await droidAccountService.getAccount(id)
+
+    if (!account) {
+      return res.status(404).json({ error: 'Account not found' })
+    }
+
+    // 获取解密后的 API Key 列表，但只返回掩码版本
+    const decryptedKeys = await droidAccountService.getDecryptedApiKeyEntries(id)
+
+    // 对每个 key 进行掩码处理
+    const maskedKeys = decryptedKeys.map((entry) => {
+      const key = entry.key || ''
+      let maskedKey = ''
+
+      if (key.length <= 8) {
+        maskedKey = key.substring(0, 2) + '*'.repeat(key.length - 2)
+      } else {
+        // 显示前4位和后4位，中间用8个*代替
+        maskedKey = key.substring(0, 6) + '*'.repeat(12) + key.substring(key.length - 6)
+      }
+
+      return {
+        id: entry.id,
+        key: maskedKey,
+        fullKey: key, // 保留完整 key 用于复制功能
+        originalKey: entry.key, // 用于获取余额
+        createdAt: entry.createdAt,
+        lastUsedAt: entry.lastUsedAt,
+        usageCount: entry.usageCount
+      }
+    })
+
+    // 批量获取余额信息，添加错误处理
+    logger.info(`🔍 Starting to fetch balance for ${maskedKeys.length} API keys`)
+    const keysWithBalances = await Promise.all(
+      maskedKeys.map(async (keyEntry) => {
+        try {
+          logger.info(`📊 Fetching balance for key ${keyEntry.id}...`)
+          // 为每个请求设置超时
+          const balancePromise = droidAccountService.getApiKeyBalance(keyEntry.fullKey)
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Balance fetch timeout')), 5000)
+          )
+
+          const balance = await Promise.race([balancePromise, timeoutPromise])
+          logger.info(`✅ Balance fetched for key ${keyEntry.id}:`, balance)
+
+          // 移除 originalKey，只返回需要的字段
+          const { originalKey, ...cleanEntry } = keyEntry
+          return {
+            ...cleanEntry,
+            balance
+          }
+        } catch (error) {
+          logger.warn(`⚠️ Failed to fetch balance for key ${keyEntry.id}:`, error.message)
+          // 返回键信息但余额显示错误
+          const { originalKey, ...cleanEntry } = keyEntry
+          return {
+            ...cleanEntry,
+            balance: {
+              available: false,
+              error: error.message || 'Failed to fetch balance'
+            }
+          }
+        }
+      })
+    )
+
+    logger.info(`📋 Fetched ${keysWithBalances.length} API keys with balance info for Droid account ${id}`)
+    return res.json({ success: true, data: keysWithBalances })
+  } catch (error) {
+    logger.error(`Failed to get API keys for Droid account ${req.params.id}:`, error)
+    return res.status(500).json({ error: 'Failed to get API keys', message: error.message })
   }
 })
 

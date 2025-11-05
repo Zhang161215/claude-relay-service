@@ -31,7 +31,7 @@
                 </span>
                 <span
                   v-if="account?.accountType"
-                  class="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-500/10 dark:text-purple-300"
+                  class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-300"
                 >
                   <i class="fas fa-user-tag mr-1" />{{ accountTypeLabel }}
                 </span>
@@ -234,7 +234,7 @@
                 <h4
                   class="mb-3 flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300"
                 >
-                  <i class="fas fa-tachometer-alt mr-2 text-purple-500" /> 平均速率
+                  <i class="fas fa-tachometer-alt mr-2 text-blue-500" /> 平均速率
                 </h4>
                 <div class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                   <div class="flex items-center justify-between">
@@ -452,7 +452,7 @@ const primaryMetrics = computed(() => [
         ? `基于 ${props.summary.actualDaysUsed} 天实际使用`
         : '平均每日成本',
     icon: 'fa-wave-square',
-    iconClass: 'text-purple-500'
+    iconClass: 'text-blue-500'
   },
   {
     key: 'avgRequests',

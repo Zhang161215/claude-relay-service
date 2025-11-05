@@ -58,7 +58,7 @@
                   class="inline-flex items-center gap-0.5"
                   :title="`Console: ${dashboardData.accountsByPlatform['claude-console'].total} 个 (正常: ${dashboardData.accountsByPlatform['claude-console'].normal})`"
                 >
-                  <i class="fas fa-terminal text-xs text-purple-600" />
+                  <i class="fas fa-terminal text-xs text-blue-600" />
                   <span class="text-xs font-medium text-gray-700 dark:text-gray-300">{{
                     dashboardData.accountsByPlatform['claude-console'].total
                   }}</span>
@@ -170,7 +170,7 @@
               总请求: {{ formatNumber(dashboardData.totalRequests || 0) }}
             </p>
           </div>
-          <div class="stat-icon flex-shrink-0 bg-gradient-to-br from-purple-500 to-purple-600">
+          <div class="stat-icon flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-600">
             <i class="fas fa-chart-line" />
           </div>
         </div>
@@ -235,13 +235,13 @@
                     formatNumber(dashboardData.todayOutputTokens || 0)
                   }}</span></span
                 >
-                <span v-if="(dashboardData.todayCacheCreateTokens || 0) > 0" class="text-purple-600"
+                <span v-if="(dashboardData.todayCacheCreateTokens || 0) > 0" class="text-blue-600"
                   >缓存创建:
                   <span class="font-medium">{{
                     formatNumber(dashboardData.todayCacheCreateTokens || 0)
                   }}</span></span
                 >
-                <span v-if="(dashboardData.todayCacheReadTokens || 0) > 0" class="text-purple-600"
+                <span v-if="(dashboardData.todayCacheReadTokens || 0) > 0" class="text-blue-600"
                   >缓存读取:
                   <span class="font-medium">{{
                     formatNumber(dashboardData.todayCacheReadTokens || 0)
@@ -291,13 +291,13 @@
                     formatNumber(dashboardData.totalOutputTokens || 0)
                   }}</span></span
                 >
-                <span v-if="(dashboardData.totalCacheCreateTokens || 0) > 0" class="text-purple-600"
+                <span v-if="(dashboardData.totalCacheCreateTokens || 0) > 0" class="text-blue-600"
                   >缓存创建:
                   <span class="font-medium">{{
                     formatNumber(dashboardData.totalCacheCreateTokens || 0)
                   }}</span></span
                 >
-                <span v-if="(dashboardData.totalCacheReadTokens || 0) > 0" class="text-purple-600"
+                <span v-if="(dashboardData.totalCacheReadTokens || 0) > 0" class="text-blue-600"
                   >缓存读取:
                   <span class="font-medium">{{
                     formatNumber(dashboardData.totalCacheReadTokens || 0)
@@ -803,7 +803,7 @@ function createModelUsageChart() {
           '#10B981',
           '#F59E0B',
           '#EF4444',
-          '#8B5CF6',
+          '#0EA5E9',
           '#EC4899',
           '#14B8A6',
           '#F97316',
@@ -906,8 +906,8 @@ function createUsageTrendChart() {
       {
         label: '输出Token',
         data: outputData,
-        borderColor: 'rgb(240, 147, 251)',
-        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+        borderColor: 'rgb(96, 165, 250)',
+        backgroundColor: 'rgba(96, 165, 250, 0.1)',
         tension: 0.3
       },
       {
@@ -1097,7 +1097,7 @@ function createApiKeysUsageTrendChart() {
     '#10B981',
     '#F59E0B',
     '#EF4444',
-    '#8B5CF6',
+    '#0EA5E9',
     '#EC4899',
     '#14B8A6',
     '#F97316',
@@ -1295,7 +1295,7 @@ function createAccountUsageTrendChart() {
     '#059669',
     '#D97706',
     '#DC2626',
-    '#7C3AED',
+    '#3730A3',
     '#F472B6',
     '#0EA5E9',
     '#F97316',
